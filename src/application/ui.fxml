@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Main">
    <children>
-      <Button fx:id="b1" layoutX="59.0" layoutY="38.0" mnemonicParsing="false" onAction="#b1Click" text="Button" />
-      <TextField fx:id="tf1" layoutX="59.0" layoutY="63.0" onMouseMoved="#tf1MouseMoved" />
-      <Label fx:id="lb1" layoutX="59.0" layoutY="112.0" prefHeight="17.0" prefWidth="329.0" text="Label" />
+      <Button fx:id="b1" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#b1Click" text="Button" />
+      <TextField fx:id="tf1" layoutX="14.0" layoutY="59.0" onMouseMoved="#tf1MouseMoved" />
+      <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="301.0" prefWidth="149.0" text="Label" />
+      <Canvas fx:id="cv1" height="400.0" layoutX="200.0" onMouseMoved="#cv1MouseMoved" width="400.0" />
    </children>
 </AnchorPane>
