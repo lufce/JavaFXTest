@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -42,6 +41,7 @@ public class Controller implements Initializable {
 	double Max=0;
 	
 	Affine aff = new Affine();
+	private static final Affine IDENTITY_TRANSFORM = new Affine(1f,0f,0f,0f,1f,0);
 	
 	@FXML
 	protected void b1Click(ActionEvent e){
@@ -101,7 +101,8 @@ public class Controller implements Initializable {
 	
 	void EraseCanvas() {
 		gc.setFill(Color.WHITE);
-		gc.fillRect(0,0,CanvasWidth,CanvasHeight);
+		gc.setTransform(IDENTITY_TRANSFORM);
+		gc.fillRect(0, 0, CanvasWidth, CanvasHeight);
 	}
 	
 	void DrawMousePoint(double x, double y) {
@@ -141,7 +142,7 @@ public class Controller implements Initializable {
 	protected void cv1Scroll(ScrollEvent e) {
 		
 		this.EraseCanvas();
-		
+		gc.setTransform(aff);
 		scale = e.getDeltaY() >=0 ? scale * scale_step : scale / scale_step;
 		
 		this.DrawDotMap(dot);
