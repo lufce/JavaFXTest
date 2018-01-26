@@ -70,7 +70,8 @@ public class Controller implements Initializable {
 	
 	@FXML
 	protected void cv1MouseMoved(MouseEvent e) {
-//		String crlf = System.getProperty("line.separator");
+		MouseX = e.getX();
+		MouseY = e.getY();
 	}
 	
 	@FXML
@@ -142,8 +143,11 @@ public class Controller implements Initializable {
 	protected void cv1Scroll(ScrollEvent e) {
 		
 		this.EraseCanvas();
+//		gc.setTransform(aff);
+		scale = e.getDeltaY() >=0 ? 1.1 : 0.9;
+		aff.appendScale(scale, scale, MouseX, MouseY);
+//		aff.append(scale, 0, (1-scale)*MouseX, 0, scale, (1-scale)*MouseY);
 		gc.setTransform(aff);
-		scale = e.getDeltaY() >=0 ? scale * scale_step : scale / scale_step;
 		
 		this.DrawDotMap(dot);
 	}
