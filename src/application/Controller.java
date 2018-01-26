@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -13,7 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Affine;
 
 public class Controller implements Initializable {
 	@FXML Button b1;
@@ -27,16 +30,28 @@ public class Controller implements Initializable {
 	
 	boolean[][] dot;
 	int dotsize = 4;
+	double scale = 1.0;
+	double scale_step = 1.1;
 	
 	double MouseX;
 	double MouseY;
+	double MousePreX;
+	double MousePreY;
+	double MouseDeltaX;
+	double MouseDeltaY;
+	double Max=0;
 	
+	Affine aff = new Affine();
 	
 	@FXML
 	protected void b1Click(ActionEvent e){
 		EraseCanvas();
-		RandomMap(dot);
-		DrawDotMap(dot);
+//		RandomMap(dot);
+//		DrawDotMap(dot);
+		
+		aff.appendTranslation(10, 10);
+		gc.setTransform(aff);
+		this.DrawDotMap(dot);
 	}
 	
 	@FXML
@@ -48,15 +63,40 @@ public class Controller implements Initializable {
 	}
 	
 	@FXML
+	protected void cv1MouseEntered(MouseEvent e) {
+//		MousePreX = e.getX();
+//		MousePreY = e.getY();
+	}
+	
+	@FXML
 	protected void cv1MouseMoved(MouseEvent e) {
-		String crlf = System.getProperty("line.separator");
+//		String crlf = System.getProperty("line.separator");
+	}
+	
+	@FXML
+	protected void cv1MousePressed(MouseEvent e) {
+		tf1.setText("click");
+		MousePreX = e.getX();
+		MousePreY = e.getY();
+	}
+	
+	@FXML
+	protected void cv1MouseDragged(MouseEvent e) {
+		tf1.setText("drag");
 		
 		MouseX = e.getX();
 		MouseY = e.getY();
-
-//		this.DrawMousePoint(MouseX, MouseY);
-		lb1.setText("x: "+MouseX+crlf+"y: "+MouseY);
 		
+		MouseDeltaX = MouseX-MousePreX;
+		MouseDeltaY = MouseY-MousePreY;
+		
+		MousePreX = MouseX;
+		MousePreY = MouseY;
+		
+		this.EraseCanvas();
+		aff.appendTranslation(MouseDeltaX,MouseDeltaY);
+		gc.setTransform(aff);
+		this.DrawDotMap(dot);
 	}
 	
 	void EraseCanvas() {
@@ -84,15 +124,27 @@ public class Controller implements Initializable {
 	}
 	
 	void DrawDotMap(boolean[][] map) {
+		double scaled_dotsize = scale*dotsize;
+		
 		gc.setFill(Color.BLACK);
 		
 		for(int m = 0; m < map.length; m++) {
 			for(int n = 0; n < map[0].length; n++) {
 				if(map[m][n]) {
-					gc.fillRect(m*dotsize, n*dotsize, dotsize, dotsize);
+					gc.fillRect(m*scaled_dotsize, n*scaled_dotsize, scaled_dotsize, scaled_dotsize);
 				}
 			}
 		}
+	}
+	
+	@FXML
+	protected void cv1Scroll(ScrollEvent e) {
+		
+		this.EraseCanvas();
+		
+		scale = e.getDeltaY() >=0 ? scale * scale_step : scale / scale_step;
+		
+		this.DrawDotMap(dot);
 	}
 	
 	@Override

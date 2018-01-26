@@ -10,6 +10,6 @@
       <Button fx:id="b1" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#b1Click" text="Button" />
       <TextField fx:id="tf1" layoutX="14.0" layoutY="59.0" onMouseMoved="#tf1MouseMoved" />
       <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="301.0" prefWidth="149.0" text="Label" />
-      <Canvas fx:id="cv1" height="360.0" layoutX="220.0" layoutY="20.0" onMouseMoved="#cv1MouseMoved" width="360.0" />
+      <Canvas fx:id="cv1" height="360.0" layoutX="220.0" layoutY="20.0" onMouseDragged="#cv1MouseDragged" onMouseEntered="#cv1MouseEntered" onMouseMoved="#cv1MouseMoved" onMousePressed="#cv1MousePressed" onScroll="#cv1Scroll" width="360.0" />
    </children>
 </AnchorPane>
