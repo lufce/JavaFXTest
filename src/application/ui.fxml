@@ -9,7 +9,13 @@
    <children>
       <Button fx:id="b1" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#b1Click" text="Button" />
       <TextField fx:id="tf1" layoutX="14.0" layoutY="59.0" onMouseMoved="#tf1MouseMoved" />
-      <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="301.0" prefWidth="149.0" text="Label" />
-      <Canvas fx:id="cv1" height="360.0" layoutX="220.0" layoutY="20.0" onMouseDragged="#cv1MouseDragged" onMouseEntered="#cv1MouseEntered" onMouseMoved="#cv1MouseMoved" onMousePressed="#cv1MousePressed" onScroll="#cv1Scroll" width="360.0" />
+      <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="66.0" prefWidth="149.0" text="Label" />
+      <Canvas fx:id="cv1" height="360.0" layoutX="220.0" layoutY="20.0" onMouseClicked="#cv1MouseClicked" onMouseDragged="#cv1MouseDragged" onMouseEntered="#cv1MouseEntered" onMouseMoved="#cv1MouseMoved" onMousePressed="#cv1MousePressed" onScroll="#cv1Scroll" width="360.0" />
+      <Label fx:id="lb_mxx" layoutX="14.0" layoutY="167.0" text="Label" wrapText="true" />
+      <Label fx:id="lb_mxy" layoutX="66.0" layoutY="167.0" text="Label" wrapText="true" />
+      <Label fx:id="lb_tx" layoutX="125.0" layoutY="167.0" text="Label" wrapText="true" />
+      <Label fx:id="lb_ty" layoutX="125.0" layoutY="197.0" text="Label" wrapText="true" />
+      <Label fx:id="lb_myy" layoutX="66.0" layoutY="197.0" text="Label" wrapText="true" />
+      <Label fx:id="lb_myx" layoutX="14.0" layoutY="197.0" text="Label" wrapText="true" />
    </children>
 </AnchorPane>
