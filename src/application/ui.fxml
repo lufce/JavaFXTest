@@ -18,5 +18,7 @@
       <Label fx:id="lb_myy" layoutX="66.0" layoutY="197.0" text="Label" wrapText="true" />
       <Label fx:id="lb_myx" layoutX="14.0" layoutY="197.0" text="Label" wrapText="true" />
       <Button fx:id="b2" layoutX="94.0" layoutY="25.0" mnemonicParsing="false" onAction="#b2Click" text="Renew Map" />
+      <ScrollBar layoutX="220.0" layoutY="7.0" prefHeight="14.0" prefWidth="360.0" />
+      <ScrollBar layoutX="579.0" layoutY="22.0" orientation="VERTICAL" prefHeight="360.0" prefWidth="14.0" />
    </children>
 </AnchorPane>
