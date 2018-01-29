@@ -21,6 +21,7 @@ public class Controller implements Initializable {
 	private String crlf = System.getProperty("line.separator");
 	
 	@FXML Button b1;
+	@FXML Button b2;
 	@FXML Label lb1;
 	@FXML TextField tf1;
 	
@@ -50,6 +51,11 @@ public class Controller implements Initializable {
 	double MouseDeltaY;
 	double Max=0;
 	
+	int DotX;
+	int DotY;
+	int SequenceLength = 0;
+	int[] StartPoint = new int[2];
+	
 	boolean drag = false;
 	
 	Affine aff = new Affine();
@@ -59,6 +65,15 @@ public class Controller implements Initializable {
 	protected void b1Click(ActionEvent e){
 		EraseCanvas();
 		aff = IDENTITY_TRANSFORM.clone();
+		this.DrawDotMap(dot);
+		this.HighlightSelectedDotSequence();
+	}
+	
+	@FXML
+	protected void b2Click(ActionEvent e) {
+		this.EraseCanvas();
+		aff = IDENTITY_TRANSFORM.clone();
+		this.RandomMap(dot);
 		this.DrawDotMap(dot);
 	}
 	
@@ -91,13 +106,17 @@ public class Controller implements Initializable {
 			double ClickX = e.getX();
 			double ClickY = e.getY();
 			
-			double DotX, DotY;
-			
-			DotX = Math.ceil((ClickX - aff.getTx() ) / scaled_dotsize);
-			DotY = Math.ceil((ClickY - aff.getTy() ) / scaled_dotsize);
+			DotX = (int)Math.ceil((ClickX - aff.getTx() ) / scaled_dotsize);
+			DotY = (int)Math.ceil((ClickY - aff.getTy() ) / scaled_dotsize);
 			
 			if (DotX > 0 && DotY > 0) {
 				tf1.setText("x: "+DotX+"  y: "+DotY+ "  sdsize: "+scaled_dotsize);
+				this.SearchSequence();
+				lb1.setText("start: " + StartPoint[0] + ", " + StartPoint[1] + "  Len: " + SequenceLength);
+				this.EraseCanvas();
+				gc.setTransform(aff);
+				this.DrawDotMap(dot);
+				this.HighlightSelectedDotSequence();
 			}else {
 				tf1.setText("out of range");
 			}
@@ -119,8 +138,8 @@ public class Controller implements Initializable {
 		MouseX = e.getX();
 		MouseY = e.getY();
 		
-		MouseDeltaX = MouseX-MousePreX;
-		MouseDeltaY = MouseY-MousePreY;
+		MouseDeltaX = (MouseX-MousePreX) / aff.getMxx();
+		MouseDeltaY = (MouseY-MousePreY) / aff.getMxx();
 		
 		MousePreX = MouseX;
 		MousePreY = MouseY;
@@ -129,6 +148,7 @@ public class Controller implements Initializable {
 		aff.appendTranslation(MouseDeltaX,MouseDeltaY);
 		gc.setTransform(aff);
 		this.DrawDotMap(dot);
+		this.HighlightSelectedDotSequence();
 		
 		drag = true;
 	}
@@ -158,7 +178,7 @@ public class Controller implements Initializable {
 		}
 	}
 	
-	void DrawDotMap(boolean[][] map) {
+	private void DrawDotMap(boolean[][] map) {
 		scaled_dotsize = aff.getMxx()*dotsize;
 		
 		gc.setFill(Color.BLACK);
@@ -175,6 +195,16 @@ public class Controller implements Initializable {
 		DrawAffine(aff);
 	}
 	
+	private void HighlightSelectedDotSequence() {
+		if(SequenceLength > 0) {
+			gc.setFill(Color.RED);
+			
+			for(int N = 0; N < SequenceLength; N++) {
+				gc.fillRect( (StartPoint[0]-1 + N)*dotsize, (StartPoint[1]-1 + N)*dotsize, dotsize, dotsize);
+			}
+		}
+	}
+	
 	@FXML
 	protected void cv1Scroll(ScrollEvent e) {
 	//四隅の余白部分が均等になるように縮小されるよう修正しないといけない。
@@ -182,11 +212,12 @@ public class Controller implements Initializable {
 		this.EraseCanvas();
 //		gc.setTransform(aff);
 		scale = e.getDeltaY() >=0 ? 1.05 : 1/1.05;
-		aff.appendScale(scale, scale, MouseX-aff.getTx(), MouseY-aff.getTy());
+		aff.appendScale(scale, scale, MouseX, MouseY);
 //		aff.append(scale, 0, (1-scale)*MouseX, 0, scale, (1-scale)*MouseY);
 		gc.setTransform(aff);
 		
 		this.DrawDotMap(dot);
+		this.HighlightSelectedDotSequence();
 		
 	}
 	
@@ -197,6 +228,37 @@ public class Controller implements Initializable {
 		lb_myx.setText(Double.toString((double)(Math.round(aff.getMyx() *1000))/1000 ));
 		lb_myy.setText(Double.toString((double)(Math.round(aff.getMyy() *1000))/1000 ));
 		lb_ty.setText(Double.toString((double)(Math.round(aff.getTy() *1000))/1000 ));
+	}
+	
+	private void SearchSequence() {
+		SequenceLength = 0;
+		
+		int X = DotX - 1;
+		int Y = DotY - 1;
+		
+		if(dot[X][Y]) {
+			while(X >= 0 && Y >= 0 && dot[X][Y]) {
+				SequenceLength++;
+				X--;
+				Y--;
+			}
+			
+			StartPoint[0] = X + 2;
+			StartPoint[1] = Y + 2;
+			
+			X = DotX;
+			Y = DotY;
+			
+			while(X < dot.length && Y < dot[0].length && dot[X][Y]) {
+				SequenceLength++;
+				X++;
+				Y++;
+			}
+		}else {
+			SequenceLength = 0;
+		}
+		
+		
 	}
 	
 	@Override
