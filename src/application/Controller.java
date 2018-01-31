@@ -44,6 +44,8 @@ public class Controller implements Initializable {
 	
 	boolean[][] dot;
 	int dotsize = 4;
+	int RefLength = 90;
+	int SampleLength = 180;
 	double scaled_dotsize;
 	double scale = 1.0;
 	double scale_step = 1.1;
@@ -161,6 +163,7 @@ public class Controller implements Initializable {
 		
 		this.EraseCanvas();
 		aff.appendTranslation(MouseDeltaX,MouseDeltaY);
+
 		gc.setTransform(aff);
 		this.DrawDotMap(dot);
 		this.HighlightSelectedDotSequence();
@@ -285,7 +288,7 @@ public class Controller implements Initializable {
 		
 		EraseCanvas();
 		
-		dot = new boolean[(int) (cv1.getHeight()/dotsize)][(int) (cv1.getWidth()/dotsize)];
+		dot = new boolean[SampleLength][RefLength];
 		RandomMap(dot);
 		DrawDotMap(dot);
 	}
