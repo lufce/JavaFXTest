@@ -7,16 +7,35 @@
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <Button fx:id="b1" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#b1Click" text="Reset View" />
-      <TextField fx:id="tf1" layoutX="14.0" layoutY="59.0" onMouseMoved="#tf1MouseMoved" />
-      <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="97.0" prefHeight="66.0" prefWidth="149.0" text="Label" />
       <Canvas fx:id="cv1" height="360.0" layoutX="220.0" layoutY="20.0" onMouseClicked="#cv1MouseClicked" onMouseDragged="#cv1MouseDragged" onMouseEntered="#cv1MouseEntered" onMouseMoved="#cv1MouseMoved" onMousePressed="#cv1MousePressed" onScroll="#cv1Scroll" width="360.0" />
-      <Label fx:id="lb_mxx" layoutX="14.0" layoutY="167.0" text="Label" wrapText="true" />
-      <Label fx:id="lb_mxy" layoutX="66.0" layoutY="167.0" text="Label" wrapText="true" />
-      <Label fx:id="lb_tx" layoutX="125.0" layoutY="167.0" text="Label" wrapText="true" />
-      <Label fx:id="lb_ty" layoutX="125.0" layoutY="197.0" text="Label" wrapText="true" />
-      <Label fx:id="lb_myy" layoutX="66.0" layoutY="197.0" text="Label" wrapText="true" />
-      <Label fx:id="lb_myx" layoutX="14.0" layoutY="197.0" text="Label" wrapText="true" />
-      <Button fx:id="b2" layoutX="94.0" layoutY="25.0" mnemonicParsing="false" onAction="#b2Click" text="Renew Map" />
+      <TabPane layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="b1" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#b1Click" text="Reset View" />
+                        <TextField fx:id="tf1" layoutX="14.0" layoutY="53.0" onMouseMoved="#tf1MouseMoved" />
+                        <Label fx:id="lb1" alignment="TOP_LEFT" layoutX="14.0" layoutY="172.0" prefHeight="66.0" prefWidth="149.0" text="Label" />
+                        <Label fx:id="lb_mxx" layoutX="25.0" layoutY="255.0" text="Label" wrapText="true" />
+                        <Label fx:id="lb_mxy" layoutX="74.0" layoutY="255.0" text="Label" wrapText="true" />
+                        <Label fx:id="lb_tx" layoutX="123.0" layoutY="255.0" text="Label" wrapText="true" />
+                        <Label fx:id="lb_ty" layoutX="123.0" layoutY="295.0" text="Label" wrapText="true" />
+                        <Label fx:id="lb_myy" layoutX="74.0" layoutY="295.0" text="Label" wrapText="true" />
+                        <Label fx:id="lb_myx" layoutX="25.0" layoutY="295.0" text="Label" wrapText="true" />
+                        <Button fx:id="b2" layoutX="110.0" layoutY="15.0" mnemonicParsing="false" onAction="#b2Click" text="Renew Map" />
+                        <TextArea fx:id="ta1" layoutX="14.0" layoutY="119.0" prefHeight="30.0" prefWidth="175.0" />
+                        <Button fx:id="b3" layoutX="13.0" layoutY="88.0" mnemonicParsing="false" onAction="#b3Click" text="Button" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -11,19 +12,23 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
+import javafx.stage.FileChooser;
 
 public class Controller implements Initializable {
 	private String crlf = System.getProperty("line.separator");
 	
 	@FXML Button b1;
 	@FXML Button b2;
+	@FXML Button b3;
 	@FXML Label lb1;
 	@FXML TextField tf1;
+	@FXML TextArea ta1;
 	
 	@FXML Label lb_mxx;
 	@FXML Label lb_mxy;
@@ -75,6 +80,16 @@ public class Controller implements Initializable {
 		aff = IDENTITY_TRANSFORM.clone();
 		this.RandomMap(dot);
 		this.DrawDotMap(dot);
+	}
+	
+	@FXML
+	protected void b3Click(ActionEvent e) {
+		FileChooser filechooser = new FileChooser();
+		File file1 = filechooser.showOpenDialog(null);
+		if(file1 != null) {
+			ta1.setText("");
+			ta1.setText(file1.getAbsolutePath());	
+		}
 	}
 	
 	@FXML
